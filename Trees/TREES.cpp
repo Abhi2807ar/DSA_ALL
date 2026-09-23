@@ -18,7 +18,9 @@ vector<int> preorderTraversal(TreeNode* root) {
 
         // Root
         ans.push_back(node->val);
-
+//Lekin stack mein agar hume Left ko pehle 
+//process karwana hai, 
+//toh Right ko pehle push karna padega.
         // Right first
         if (node->right != NULL)
             st.push(node->right);
