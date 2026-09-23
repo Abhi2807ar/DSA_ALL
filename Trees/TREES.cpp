@@ -504,7 +504,54 @@ Isse saare leaves add ho jayenge.
 //         return result;
 //     }
 // };
+///lca of binary tree iterative
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root,
+                                   TreeNode* p,
+                                   TreeNode* q) {
 
+        unordered_map<TreeNode*, TreeNode*> parent;
+        queue<TreeNode*> que;
+
+        parent[root] = NULL;
+        que.push(root);
+
+        // 1. Parent of every node find karo
+        while (!que.empty()) {
+            TreeNode* curr = que.front();
+            que.pop();
+
+            if (curr->left) {
+                parent[curr->left] = curr;
+                que.push(curr->left);
+            }
+
+            if (curr->right) {
+                parent[curr->right] = curr;
+                que.push(curr->right);
+            }
+        }
+
+        // 2. p ke saare ancestors mark karo
+        unordered_set<TreeNode*> ancestors;
+
+        while (p != NULL) {
+            ancestors.insert(p);
+            p = parent[p];
+        }
+
+        // 3. q se upar jao
+        while (q != NULL) {
+            if (ancestors.count(q))
+                return q;
+
+            q = parent[q];
+        }
+
+        return NULL;
+    }
+};
 /////////////lca of binry treesd//
 // class Solution {
 // public:
