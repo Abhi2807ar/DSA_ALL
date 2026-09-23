@@ -183,7 +183,119 @@ vector<vector<int>> levelOrder(TreeNode* root) {
     return ans;
 }
 
+// har level order ka traversal skelton
 
+queue<TreeNode*> q;
+
+q.push(root);
+
+while (!q.empty())
+{
+    int size = q.size();
+
+    vector<int> level;
+
+    for (int i = 0; i < size; i++)
+    {
+        TreeNode* node = q.front();
+        q.pop();
+
+        // CURRENT NODE KA KAAM
+
+        if (node->left)
+            q.push(node->left);
+
+        if (node->right)
+            q.push(node->right);
+    }
+
+    // CURRENT LEVEL KA KAAM
+    ans.push_back(level);
+}
+/////
+leftside view
+vector<int> leftSideView(TreeNode* root)
+{
+    vector<int> result;
+
+    if (root == NULL)
+        return result;
+
+    queue<TreeNode*> que;
+
+    que.push(root);
+
+    while (!que.empty())
+    {
+        int n = que.size();
+
+        for (int i = 0; i < n; i++)
+        {
+            TreeNode* node = que.front();
+            que.pop();
+
+            // First node of every level
+            if (i == 0)
+                result.push_back(node->val);
+
+            if (node->left != NULL)
+                que.push(node->left);
+
+            if (node->right != NULL)
+                que.push(node->right);
+        }
+    }
+
+    return result;
+}
+
+// right view
+vector<int> rightSideView(TreeNode* root)
+{
+    vector<int> result;
+
+    if (root == NULL)
+        return result;
+
+    queue<TreeNode*> que;
+
+    que.push(root);
+
+    while (!que.empty())
+    {
+        int n = que.size();
+
+        TreeNode* node = NULL;
+
+        while (n--)
+        {
+            node = que.front();
+            que.pop();
+
+            if (node->left != NULL)
+                que.push(node->left);
+
+            if (node->right != NULL)
+                que.push(node->right);
+        }
+
+        // Last node of this level
+        result.push_back(node->val);
+    }
+
+    return result;
+}
+
+***
+Difference sirf itna:
+Right View
+result.push_back(node->val);
+after entire level
+→ last node.
+
+Left View
+Current level ka first node chahiye
+**
 /// DEPTH OF TRESS///////////////
 // class Solution {
 // public:
