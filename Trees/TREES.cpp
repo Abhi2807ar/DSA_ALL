@@ -2906,7 +2906,52 @@ Isse saare leaves add ho jayenge.
 //     }
 // };
 
+///iterative////PATH SUM//
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
 
+        if(root == NULL)
+            return false;
+
+        stack<pair<TreeNode*, int>> st;
+
+        st.push({root, root->val});
+
+        while(!st.empty()) {
+
+            TreeNode* curr = st.top().first;
+            int sum = st.top().second;
+
+            st.pop();
+
+            // Leaf node
+            if(curr->left == NULL && curr->right == NULL) {
+
+                if(sum == targetSum)
+                    return true;
+            }
+
+            // Right child
+            if(curr->right != NULL) {
+                st.push({
+                    curr->right,
+                    sum + curr->right->val
+                });
+            }
+
+            // Left child
+            if(curr->left != NULL) {
+                st.push({
+                    curr->left,
+                    sum + curr->left->val
+                });
+            }
+        }
+
+        return false;
+    }
+};
 
 //////////////PATH SUM/////////////////////////////////
 // class Solution {
