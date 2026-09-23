@@ -1,3 +1,27 @@
+
+Trick
+
+1.Path problems mein:
+
+PUSH
+ ↓
+EXPLORE
+ ↓
+SUCCESS → return
+ ↓
+FAIL → POP
+
+
+2.Whenever you see:
+
+longest path between two nodes
+
+
+think:LEFT HEIGHT + RIGHT HEIGHT
+
+3.DFS → recursion
+4.BFS → queue
+
 Trees
              1
            /   \
