@@ -3164,6 +3164,66 @@ TreeNode* findSibling(TreeNode* root, int target) {
 //     }
 // };
 
+//find cousin in a binary tree
+
+bool isCousins(TreeNode* root, int x, int y) {
+
+    if (root == NULL)
+        return false;
+
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+
+        int n = q.size();
+
+        bool foundX = false;
+        bool foundY = false;
+
+        for (int i = 0; i < n; i++) {
+
+            TreeNode* curr = q.front();
+            q.pop();
+
+            // Check if x and y are siblings
+            if (curr->left && curr->right) {
+
+                if ((curr->left->val == x &&
+                     curr->right->val == y) ||
+                    (curr->left->val == y &&
+                     curr->right->val == x)) {
+
+                    return false;
+                }
+            }
+
+            if (curr->val == x)
+                foundX = true;
+
+            if (curr->val == y)
+                foundY = true;
+
+            if (curr->left)
+                q.push(curr->left);
+
+            if (curr->right)
+                q.push(curr->right);
+        }
+
+        // Same level + different parent
+        if (foundX && foundY)
+            return true;
+
+        // Sirf ek mila → different levels
+        if (foundX || foundY)
+            return false;
+    }
+
+    return false;
+}
+
+
 
 ///////find the maximum sum of node values////////////
 // class Solution {
