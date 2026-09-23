@@ -1,3 +1,68 @@
+Trees
+             1
+           /   \
+          2     3
+         / \   / \
+        4   5 6   7
+--har node
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(int x) {
+        val = x;
+        left = NULL;
+        right = NULL;
+    }
+};
+//Sabse important thought:
+
+Har tree problem = 
+current node par kya karna hai + 
+left subtree se kya chahiye + 
+right subtree se kya chahiye.
+
+Level order traversal
+
+vector<vector<int>> levelOrder(TreeNode* root) {
+
+    vector<vector<int>> ans;
+
+    if(root == NULL)
+        return ans;
+
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while(!q.empty()) {
+
+        int size = q.size();
+
+        vector<int> level;
+
+        for(int i = 0; i < size; i++) {
+
+            TreeNode* curr = q.front();
+            q.pop();
+
+            level.push_back(curr->val);
+
+            if(curr->left)
+                q.push(curr->left);
+
+            if(curr->right)
+                q.push(curr->right);
+        }
+
+        ans.push_back(level);
+    }
+
+    return ans;
+}
+
+
 /// DEPTH OF TRESS///////////////
 // class Solution {
 // public:
