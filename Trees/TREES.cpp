@@ -3087,7 +3087,37 @@ Isse saare leaves add ho jayenge.
 //     }
 // };
 
+///
+TreeNode* findSibling(TreeNode* root, int target) {
 
+    if (root == NULL)
+        return NULL;
+
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+
+        TreeNode* curr = q.front();
+        q.pop();
+
+        if (curr->left && curr->left->val == target) {
+            return curr->right;
+        }
+
+        if (curr->right && curr->right->val == target) {
+            return curr->left;
+        }
+
+        if (curr->left)
+            q.push(curr->left);
+
+        if (curr->right)
+            q.push(curr->right);
+    }
+
+    return NULL;
+}
 ///////////////cousins in a binary tree 2///////////////////
 // class Solution {
 // public:
