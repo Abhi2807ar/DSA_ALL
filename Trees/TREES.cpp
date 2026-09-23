@@ -329,6 +329,36 @@ Current level ka first node chahiye
 
 
 /////SUM OF LEFT LEAVES////////////////
+//approach2
+int sumOfLeftLeaves(TreeNode* root) {
+
+    if(root == NULL)
+        return 0;
+
+    int sum = 0;
+
+    // Check whether left child is a leaf
+    if(root->left != NULL &&
+       root->left->left == NULL &&
+       root->left->right == NULL) {
+
+        sum += root->left->val;
+    }
+
+    // Go into left subtree
+    sum += sumOfLeftLeaves(root->left);
+
+    // Go into right subtree
+    sum += sumOfLeftLeaves(root->right);
+
+    return sum;
+}
+///////////
+Sabse common mistake
+if(root->left == NULL && root->right == NULL)
+    sum += root->val;
+Isse saare leaves add ho jayenge.
+
 //Approach-1 (Using Parent Pointer)
 //T.C : O(n)
 //S.C : O(1) Auxiiliary Space and O(depth of tree) recursion system stack space
