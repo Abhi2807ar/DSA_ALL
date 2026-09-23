@@ -146,8 +146,12 @@ Har tree problem =
 current node par kya karna hai + 
 left subtree se kya chahiye + 
 right subtree se kya chahiye.
-
+//////////
 Level order traversal
+Level Order
+→ TOP → BOTTOM
+Reverse Level Order
+→ BOTTOM → TOP
 
 vector<vector<int>> levelOrder(TreeNode* root) {
 
@@ -215,6 +219,36 @@ while (!q.empty())
     ans.push_back(level);
 }
 /////
+
+reverse level order
+vector<int> rightToLeftLevelOrder(TreeNode* root) {
+
+    vector<int> ans;
+
+    if (root == NULL)
+        return ans;
+
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+
+        TreeNode* curr = q.front();
+        q.pop();
+
+        ans.push_back(curr->val);
+
+        // RIGHT first
+        if (curr->right != NULL)
+            q.push(curr->right);
+
+        // LEFT second
+        if (curr->left != NULL)
+            q.push(curr->left);
+    }
+
+    return ans;
+}
 leftside view
 vector<int> leftSideView(TreeNode* root)
 {
