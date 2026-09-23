@@ -1,3 +1,100 @@
+iterative 
+1.preorder
+
+vector<int> preorderTraversal(TreeNode* root) {
+
+    vector<int> ans;
+
+    if (root == NULL)
+        return ans;
+
+    stack<TreeNode*> st;
+    st.push(root);
+
+    while (!st.empty()) {
+
+        TreeNode* node = st.top();
+        st.pop();
+
+        // Root
+        ans.push_back(node->val);
+
+        // Right first
+        if (node->right != NULL)
+            st.push(node->right);
+
+        // Left second
+        if (node->left != NULL)
+            st.push(node->left);
+    }
+
+    return ans;
+}
+
+2.inorder
+vector<int> inorderTraversal(TreeNode* root) {
+
+    vector<int> ans;
+    stack<TreeNode*> st;
+
+    TreeNode* curr = root;
+
+    while (curr != NULL || !st.empty()) {
+
+        // 1. Leftmost node tak jao
+        while (curr != NULL) {
+            st.push(curr);
+            curr = curr->left;
+        }
+
+        // 2. Leftmost node nikalo
+        curr = st.top();
+        st.pop();
+
+        // 3. Root process karo
+        ans.push_back(curr->val);
+
+        // 4. Right subtree par jao
+        curr = curr->right;
+    }
+
+    return ans;
+}
+
+3.Postorder
+
+vector<int> postorderTraversal(TreeNode* root) {
+
+    vector<int> ans;
+
+    stack<TreeNode*> st;
+    TreeNode* curr = root;
+    TreeNode* lastVisited = NULL;
+
+    while (curr != NULL || !st.empty()) {
+
+        // Leftmost jao
+        while (curr != NULL) {
+            st.push(curr);
+            curr = curr->left;
+        }
+
+        TreeNode* node = st.top();
+
+        // Right child available hai
+        // aur abhi visit nahi hua
+        if (node->right != NULL && node->right != lastVisited) {
+            curr = node->right;
+        }
+        else {
+            ans.push_back(node->val);
+            lastVisited = node;
+            st.pop();
+        }
+    }
+
+    return ans;
+}
 
 Trick
 
